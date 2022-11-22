@@ -3,64 +3,59 @@
 
 #define ARRAY_LENGTH 10
 #define V 10
-#define INF 999999
+#define INF 999999999
 
 
-int **makeMatrixOfDis(int **graph) {
-    //let dist be a |V| × |V| array of minimum distances initialized to ∞ (infinity)
-    int **dist = (int **) malloc(sizeof(int *) * ARRAY_LENGTH);
+int* makeMatrixOfDis(int *graph) {
+    int* dist = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
     int i, j;
     for (i = 0; i < ARRAY_LENGTH; i++)//checking purpose
     {
-        dist[i] = (int *) malloc(sizeof(int) * ARRAY_LENGTH);
         for (j = 0; j < ARRAY_LENGTH; j++) {
-            if (graph[i][j] == 0) dist[i][j] = INF;
-            else dist[i][j] = graph[i][j];
+            if (graph[i*ARRAY_LENGTH+j] == 0) dist[(i*ARRAY_LENGTH)+j] = INF;
+            else dist[(i*ARRAY_LENGTH)+j] = graph[(i*ARRAY_LENGTH)+j];
         }
     }
-
+    free(graph);
     for (int k = 0; k < V; k++) {
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
-                if (dist[i][k] + dist[k][j] < dist[i][j])
-                    dist[i][j] = dist[i][k] + dist[k][j];
+                if (dist[(i*ARRAY_LENGTH)+k] + dist[(k*ARRAY_LENGTH)+j] < dist[(i*ARRAY_LENGTH)+j])
+                    dist[(i*ARRAY_LENGTH)+j] = dist[(i*ARRAY_LENGTH)+k] + dist[(k*ARRAY_LENGTH)+j];
             }
         }
     }
-
-
     return dist;
+
 }
 
-int **initilizeMatrix() {
-    int **arr = (int **) malloc(sizeof(int *) * ARRAY_LENGTH);
+int* initilizeMatrix() {
+    int* arr = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
     int i, j;
-    for (i = 0; i < ARRAY_LENGTH; i++)//checking purpose
+    for (i = 0; i < ARRAY_LENGTH; i++)
     {
-        arr[i] = (int *) malloc(sizeof(int) * ARRAY_LENGTH);
         for (j = 0; j < ARRAY_LENGTH; j++) {
-            scanf("%d", &arr[i][j]);
+            scanf("%d", &arr[(i*ARRAY_LENGTH)+j]);
         }
     }
     return makeMatrixOfDis(arr);
-
 }
 
-void isRoad(int **matrix) {
+void isRoad(int *matrix) {
     int i, j;
     scanf("%d", &i);
     scanf("%d", &j);
-    if (i != j && matrix[i][j] != INF) printf("True\n");
+    if (i != j && matrix[(i*ARRAY_LENGTH)+j] != INF) printf("True\n");
     else printf("False\n");
 
 }
 
-void shortestRoad(int **matrix) {
+void shortestRoad(int *matrix) {
     int i, j;
     scanf("%d", &i);
     scanf("%d", &j);
-    if (i == j || matrix[i][j] == INF) printf("-1\n");
-    else printf("%d\n", matrix[i][j]);
+    if (i == j || matrix[(i*ARRAY_LENGTH)+j] == INF) printf("-1\n");
+    else printf("%d\n", matrix[(i*ARRAY_LENGTH)+j]);
 
 }
 

@@ -13,8 +13,7 @@ connections: libclassreq.a $(OBJECT_MAIN)
 	${CC} ${CFLAG} -L. $(OBJECT_MAIN) -lclassreq -o $@
 
 libclassreq.a : $(OBJECTS_LOOP)
-		$(AR) $(FLAGS) -rcs libclassreq.a $(OBJECTS_LOOP)
-
+	$(AR) $(FLAGS) -rcs libclassreq.a $(OBJECTS_LOOP)
 
 $(OBJECT_MAIN): main.c my_mat.h
 	${CC} ${CFLAG} -c main.c

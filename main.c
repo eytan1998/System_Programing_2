@@ -1,19 +1,18 @@
-//
-// Created by eitan on 11/21/22.
-//
+
 #define ARRAY_LENGTH 10
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "my_mat.h"
 
 int main() {
     char choice;
-    int** matrix;
-    do{
-        scanf(" %c",&choice);
+    int *matrix;
 
-        switch(choice)
-        {
+    do {
+        scanf(" %c", &choice);
+
+        switch (choice) {
             case 'A':
                 matrix = initilizeMatrix();
                 break;
@@ -28,6 +27,7 @@ int main() {
         }
 
     } while (choice != 'D');
+    free(matrix);
     return 0;
 }
 /*

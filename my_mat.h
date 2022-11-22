@@ -1,4 +1,4 @@
 
-int** initilizeMatrix();
-void isRoad(int**);
-void shortestRoad(int**);
+int* initilizeMatrix();
+int* isRoad(int*);
+void shortestRoad(int*);
