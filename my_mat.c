@@ -7,8 +7,21 @@
 
 
 int* makeMatrixOfDis(int *graph) {
-    int* dist = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
+
+
+}
+
+int* initilizeMatrix() {
+    int* graph = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
     int i, j;
+    for (i = 0; i < ARRAY_LENGTH; i++)
+    {
+        for (j = 0; j < ARRAY_LENGTH; j++) {
+            scanf("%d", &graph[(i*ARRAY_LENGTH)+j]);
+        }
+    }
+    int* dist = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
+
     for (i = 0; i < ARRAY_LENGTH; i++)//checking purpose
     {
         for (j = 0; j < ARRAY_LENGTH; j++) {
@@ -25,20 +38,13 @@ int* makeMatrixOfDis(int *graph) {
             }
         }
     }
-    return dist;
-
-}
-
-int* initilizeMatrix() {
-    int* arr = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
-    int i, j;
     for (i = 0; i < ARRAY_LENGTH; i++)
     {
         for (j = 0; j < ARRAY_LENGTH; j++) {
-            scanf("%d", &arr[(i*ARRAY_LENGTH)+j]);
+            if (dist[(i*ARRAY_LENGTH)+j] == INF || i ==j ) dist[(i*ARRAY_LENGTH)+j] =-1;
         }
     }
-    return makeMatrixOfDis(arr);
+    return dist;
 }
 
 void isRoad(int *matrix) {

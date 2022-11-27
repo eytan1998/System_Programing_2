@@ -11,7 +11,6 @@ int main() {
 
     do {
         scanf(" %c", &choice);
-
         switch (choice) {
             case 'A':
                 matrix = initilizeMatrix();
