@@ -7,14 +7,14 @@
 
 int main() {
     char choice;
-    int *matrix;
+    int *matrix = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
 
     do {
         scanf(" %c", &choice);
 
         switch (choice) {
             case 'A':
-                matrix = initilizeMatrix();
+                initilizeMatrix(matrix);
                 break;
             case 'B':
                 isRoad(matrix);
