@@ -1,52 +1,51 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-#define ARRAY_LENGTH 10
-#define INF 999999999
+#define MATRIX_SIZE 10
+#define INF -1
 
-void initilizeMatrix(int* dist) {
-    int *graph = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
-    int i, j;
-    for (i = 0; i < ARRAY_LENGTH; i++) {
-        for (j = 0; j < ARRAY_LENGTH; j++) {
-            scanf("%d", &graph[(i * ARRAY_LENGTH) + j]);
+void initializeMatrix(int *matrix) {
+
+    //initialize the matrix by the graph that user input
+    for (int i = 0; i < MATRIX_SIZE; i++) {
+        for (int j = 0; j < MATRIX_SIZE; j++) {
+            int input;
+            scanf("%d", &input);
+
+            if (input == 0) matrix[(i * MATRIX_SIZE) + j] = INF;
+            else matrix[(i * MATRIX_SIZE) + j] = input;
         }
     }
 
-    for (i = 0; i < ARRAY_LENGTH; i++)//checking purpose
-    {
-        for (j = 0; j < ARRAY_LENGTH; j++) {
-            if (graph[i * ARRAY_LENGTH + j] == 0) dist[(i * ARRAY_LENGTH) + j] = INF;
-            else dist[(i * ARRAY_LENGTH) + j] = graph[(i * ARRAY_LENGTH) + j];
-        }
-    }
-    free(graph);
-    for (int k = 0; k < ARRAY_LENGTH; k++) {
-        for (int i = 0; i < ARRAY_LENGTH; i++) {
-            for (int j = 0; j < ARRAY_LENGTH; j++) {
-                if (dist[(i * ARRAY_LENGTH) + k] + dist[(k * ARRAY_LENGTH) + j] < dist[(i * ARRAY_LENGTH) + j])
-                    dist[(i * ARRAY_LENGTH) + j] = dist[(i * ARRAY_LENGTH) + k] + dist[(k * ARRAY_LENGTH) + j];
+    for (int k = 0; k < MATRIX_SIZE; k++) {
+        for (int i = 0; i < MATRIX_SIZE; i++) {
+            for (int j = 0; j < MATRIX_SIZE; j++) {
+                //to adapt -1(=infinity) for comparison
+                int isCurrentInf = (matrix[(i * MATRIX_SIZE) + j] == INF);
+                int isMaybeInf = (matrix[(i * MATRIX_SIZE) + k] == INF || matrix[(k * MATRIX_SIZE) + j] == INF);
+
+                //if is inf so surly is not less than current
+                if (isMaybeInf) continue;
+                //if there is shorter road take it
+                else if (isCurrentInf || matrix[(i * MATRIX_SIZE) + j] >
+                                                matrix[(i * MATRIX_SIZE) + k] + matrix[(k * MATRIX_SIZE) + j]) {
+                    matrix[(i * MATRIX_SIZE) + j] = matrix[(i * MATRIX_SIZE) + k] + matrix[(k * MATRIX_SIZE) + j];
+                }
+
             }
         }
     }
 
 }
 
-void isRoad(int *matrix) {
+int shortestRoad(int *matrix) {
     int i, j;
-    scanf("%d", &i);
-    scanf("%d", &j);
-    if (i != j && matrix[(i * ARRAY_LENGTH) + j] != INF) printf("True\n");
-    else printf("False\n");
-
+    scanf("%d%d", &i, &j);
+    //to eliminate the possibility to get road to myself from other
+    if (i == j) return INF;
+    else return matrix[(i * MATRIX_SIZE) + j];
 }
 
-void shortestRoad(int *matrix) {
-    int i, j;
-    scanf("%d", &i);
-    scanf("%d", &j);
-    if (i == j || matrix[(i * ARRAY_LENGTH) + j] == INF) printf("-1\n");
-    else printf("%d\n", matrix[(i * ARRAY_LENGTH) + j]);
-
+int isRoad(int *matrix) {
+    return (shortestRoad(matrix) != INF);
 }
 

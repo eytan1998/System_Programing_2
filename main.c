@@ -1,30 +1,27 @@
-
-#define ARRAY_LENGTH 10
-
 #include <stdlib.h>
 #include <stdio.h>
 #include "my_mat.h"
 
+#define MATRIX_SIZE 10
+
 int main() {
     char choice;
-    int *matrix = malloc((ARRAY_LENGTH * ARRAY_LENGTH) * sizeof(int));
+    int *matrix = malloc((MATRIX_SIZE * MATRIX_SIZE) * sizeof(int));
 
     do {
         scanf(" %c", &choice);
         switch (choice) {
             case 'A':
-                initilizeMatrix(matrix);
+                initializeMatrix(matrix);
                 break;
             case 'B':
-                isRoad(matrix);
+                if (isRoad(matrix))printf("True\n");
+                else printf("False\n");
                 break;
             case 'C':
-                shortestRoad(matrix);
-                break;
-            default:
+                printf("%d\n", shortestRoad(matrix));
                 break;
         }
-
     } while (choice != 'D');
     free(matrix);
     return 0;
@@ -39,7 +36,7 @@ int main() {
 0 0 0 0 0 2 0 0 0 0
 0 0 0 5 4 0 0 0 0 2
 0 0 0 0 1 0 0 0 0 0
-0 0 0 0 1 0 0 0 0 0
+0 0 0 0 1 0 0 2 0 0
 ___________________
 0 1 2  3  4 5 6  7  8  9
 2 2 1 -1 -1 2 4 -1 -1 -1
