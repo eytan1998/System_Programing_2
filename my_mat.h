@@ -1,6 +1,6 @@
 
-void initializeMatrix(int *);
+void initializeMatrix(int matrix[][]);
 
-int isRoad(int *);
+int isRoad(int matrix[][]);
 
-int shortestRoad(int *);
+int shortestRoad(int matrix[][]);
