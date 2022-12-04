@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "my_mat.h"
 
-#define MATRIX_SIZE 10
 
 int main() {
     char choice;
